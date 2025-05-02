@@ -1,0 +1,63 @@
+name: Appimage
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ghcr.io/pkgforge-dev/archlinux:latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: build
+      run: |
+        pacman -Syu --noconfirm \
+          base-devel \
+          cpu-x \
+          curl \
+          git \
+          gtk3 \
+          gvfs \
+          patchelf \
+          strace \
+          wget \
+          xorg-server-xvfb \
+          zsync
+
+    - name: Make AppImage
+      run: |
+        chmod +x ./*-appimage.sh
+        ./*-appimage.sh
+        mkdir dist
+        mv *.AppImage* dist/
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: AppImage
+        path: 'dist'
+        
+  release:
+      needs: [build]
+      permissions: write-all
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/download-artifact@v4
+          with:
+            name: AppImage
+
+        - name: release
+          uses: marvinpinto/action-automatic-releases@latest
+          with:
+            title: Continuous build
+            automatic_release_tag: continuous
+            prerelease: false
+            draft: false
+            files: |
+              *.AppImage*
+            repo_token: ${{ secrets.GITHUB_TOKEN }}
