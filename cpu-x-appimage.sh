@@ -52,11 +52,9 @@ cd ./AppDir
 # ADD LIBRARIES
 wget "$LIB4BN" -O ./lib4bin
 chmod +x ./lib4bin
-xvfb-run -a -- ./lib4bin -p -v -s -k \
+./lib4bin -p -v -s -k \
 	/usr/bin/cpu-x \
 	/usr/lib/libcpuid.so* \
-	/usr/lib/libEGL*.so* \
-	/usr/lib/libvulkan*.so* \
 	/usr/lib/libgirepository-*.so* \
 	/usr/lib/gtk-*/*/immodules/*.so \
 	/usr/lib/gdk-pixbuf-*/*/loaders/*
