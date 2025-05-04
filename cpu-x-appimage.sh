@@ -42,8 +42,8 @@ else
 	wget --retry-connrefused --tries=30 "$Vk_BROADCOM_URL"  -O ./vulkan-broadcom.pkg.tar.zst
 fi
 
-pacman -U --noconfirm ./*.pkg.tar.zst
-rm -f ./*.pkg.tar.zst
+#pacman -U --noconfirm ./*.pkg.tar.zst
+#rm -f ./*.pkg.tar.zst
 
 # Prepare AppDir
 mkdir -p ./AppDir
@@ -55,7 +55,6 @@ chmod +x ./lib4bin
 xvfb-run -a -- ./lib4bin -p -v -e -s -k \
 	/usr/bin/cpu-x \
 	/usr/lib/libcpuid.so* \
-	/usr/lib/dri/* \
 	/usr/lib/libEGL*.so* \
 	/usr/lib/libvulkan*.so* \
 	/usr/lib/libgirepository-*.so* \
