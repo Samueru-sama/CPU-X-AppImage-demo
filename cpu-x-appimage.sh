@@ -28,22 +28,22 @@ VK_BROADCOM_URL="https://github.com/pkgforge-dev/llvm-libs-debloated/releases/do
 
 echo "Installing debloated pckages..."
 echo "---------------------------------------------------------------"
-wget --retry-connrefused --tries=30 "$LLVM_URL"        -O  ./llvm-libs.pkg.tar.zst
+#wget --retry-connrefused --tries=30 "$LLVM_URL"        -O  ./llvm-libs.pkg.tar.zst
 wget --retry-connrefused --tries=30 "$LIBXML_URL"      -O  ./libxml2.pkg.tar.zst
-wget --retry-connrefused --tries=30 "$MESA_URL"        -O  ./mesa.pkg.tar.zst
-wget --retry-connrefused --tries=30 "$VK_RADEON_URL"   -O  ./vulkan-radeon.pkg.tar.zst
-wget --retry-connrefused --tries=30 "$VK_NOUVEAU_URL"  -O  ./vulkan-nouveau.pkg.tar.zst
+#wget --retry-connrefused --tries=30 "$MESA_URL"        -O  ./mesa.pkg.tar.zst
+#wget --retry-connrefused --tries=30 "$VK_RADEON_URL"   -O  ./vulkan-radeon.pkg.tar.zst
+#wget --retry-connrefused --tries=30 "$VK_NOUVEAU_URL"  -O  ./vulkan-nouveau.pkg.tar.zst
 
-if [ "$(uname -m)" = 'x86_64' ]; then
-	wget --retry-connrefused --tries=30 "$VK_INTEL_URL"     -O ./vulkan-intel.pkg.tar.zst
-else
-	wget --retry-connrefused --tries=30 "$VK_PANFROST_URL"  -O ./vulkan-panfrost.pkg.tar.zst
-	wget --retry-connrefused --tries=30 "$Vk_FREEDRENO_URL" -O ./vulkan-freedreno.pkg.tar.zst
-	wget --retry-connrefused --tries=30 "$Vk_BROADCOM_URL"  -O ./vulkan-broadcom.pkg.tar.zst
-fi
+#if [ "$(uname -m)" = 'x86_64' ]; then
+#	wget --retry-connrefused --tries=30 "$VK_INTEL_URL"     -O ./vulkan-intel.pkg.tar.zst
+#else
+#	wget --retry-connrefused --tries=30 "$VK_PANFROST_URL"  -O ./vulkan-panfrost.pkg.tar.zst
+#	wget --retry-connrefused --tries=30 "$Vk_FREEDRENO_URL" -O ./vulkan-freedreno.pkg.tar.zst
+#	wget --retry-connrefused --tries=30 "$Vk_BROADCOM_URL"  -O ./vulkan-broadcom.pkg.tar.zst
+#fi
 
-#pacman -U --noconfirm ./*.pkg.tar.zst
-#rm -f ./*.pkg.tar.zst
+pacman -U --noconfirm ./*.pkg.tar.zst
+rm -f ./*.pkg.tar.zst
 
 # Prepare AppDir
 mkdir -p ./AppDir
@@ -55,6 +55,7 @@ chmod +x ./lib4bin
 ./lib4bin -p -v -s -k \
 	/usr/bin/cpu-x \
 	/usr/lib/libcpuid.so* \
+	/usr/lib/libvulkan*.so* \
 	/usr/lib/libgirepository-*.so* \
 	/usr/lib/gtk-*/*/immodules/*.so \
 	/usr/lib/gdk-pixbuf-*/*/loaders/*
