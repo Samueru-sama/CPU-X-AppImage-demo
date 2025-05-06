@@ -57,6 +57,7 @@ chmod +x ./lib4bin
 	/usr/lib/libcpuid.so* \
 	/usr/lib/libvulkan*.so* \
 	/usr/lib/libgirepository-*.so* \
+	/usr/lib/gvfs/* \
 	/usr/lib/gtk-*/*/immodules/*.so \
 	/usr/lib/gdk-pixbuf-*/*/loaders/*
 
